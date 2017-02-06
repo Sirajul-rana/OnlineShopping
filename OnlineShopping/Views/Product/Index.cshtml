@@ -1,0 +1,52 @@
+﻿@model IEnumerable<OnlineShopping.Models.Product>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Product Image")
+        </th>
+        <th>
+            @Html.DisplayName("Product Name")
+        </th>
+        <th>
+            @Html.DisplayName("Product Description")
+        </th>
+        <th>
+            @Html.DisplayName("Product Price")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product_picture_path)
+        </td>
+        <td>
+            @Html.ActionLink(item.Product_name, "Details", new { id = item.Product_Id})
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product_description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product_price)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Product_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Product_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Product_Id })
+        </td>
+    </tr>
+}
+
+</table>

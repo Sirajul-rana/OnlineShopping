@@ -1,0 +1,27 @@
+﻿@using OnlineShopping
+@model IEnumerable<OnlineShopping.Models.Product>
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-4 portfolio-item">
+@foreach (var item in Model)
+{
+    <a href="#">
+        <img src="~/Resource/HomeImage.png" class="img-responsive"/>
+        @*<img class="" img-responsive"" width="" 150""");
+             htmlString.AppendFormat(@"src="" {0}"" alt="" "" />*@
+        @Html.DisplayFor(modelItem => item.Product_picture_path)
+    </a>
+    <h3>
+        @Html.ActionLink(item.Product_name, "Details", new {id = item.Product_Id})
+
+    </h3>
+    <p>@Html.DisplayFor(modelItem => item.Product_description)</p>
+    <p style="text-align: center">
+        @Html.DisplayFor(modelItem => item.Product_price)Tk
+    </p>
+}
+</div>

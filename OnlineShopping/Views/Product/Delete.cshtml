@@ -1,0 +1,96 @@
+﻿@model OnlineShopping.Models.Product
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Product Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Price")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_price)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Vat")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_vat)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Discount")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_discount)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Image")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_picture_path)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Quantity")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Description")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_description)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Size")
+        </dt>
+
+        <dd>
+            @ViewBag.sizename
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Sub-Category")
+        </dt>
+
+        <dd>
+            @ViewBag.subcategoryname
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,90 @@
+﻿@model OnlineShopping.Models.Product
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Product Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Price")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_price)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Vat")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_vat)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Discount")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_discount)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Image")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_picture_path)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Quantity")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Description")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_description)
+        </dd>
+
+        <dt>
+           @Html.DisplayName("Size")
+        </dt>
+
+        <dd>
+            @ViewBag.sizename
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Sub-Category")
+        </dt>
+
+        <dd>
+            @ViewBag.subcategoryname
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Product_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
