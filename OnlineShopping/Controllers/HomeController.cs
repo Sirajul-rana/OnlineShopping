@@ -37,9 +37,11 @@ namespace OnlineShopping.Controllers
         }
 
         [HttpPost]
-        public string Login(string username, string password)
+        public ActionResult Login(string username, string password)
         {
-            return "We got to Test01"+username+password;
+            User user = Context.Users.SingleOrDefault(u => u.User_name == username && u.User_password == password);
+            Session["User"] = user;
+            return RedirectToAction("Index", "Product");
         }
     }
 }

@@ -1,10 +1,15 @@
 ﻿@model IEnumerable<OnlineShopping.Models.Product>
 
 @{
+    ViewBag.Title = "LoadProducts";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
+<h2>LoadProducts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -22,14 +27,14 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
+@foreach (var item in Model)
+{
+    <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Product_picture_path)
         </td>
         <td>
-            @Html.ActionLink(item.Product_name, "Details", new { id = item.Product_Id})
+            @Html.ActionLink(item.Product_name, "Details", new { id = item.Product_Id })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Product_description)
@@ -38,9 +43,9 @@
             @Html.DisplayFor(modelItem => item.Product_price)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Product_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Product_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Product_Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Product_Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Product_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Product_Id })
         </td>
     </tr>
 }

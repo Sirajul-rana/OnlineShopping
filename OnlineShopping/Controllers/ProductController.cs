@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using System.Web.UI.WebControls;
 using OnlineShopping.Context;
 using OnlineShopping.Models;
@@ -15,16 +16,51 @@ namespace OnlineShopping.Controllers
         // GET: Product
         public ActionResult Index()
         {
-
-            return View(Context.Products.ToList());
+            if (Session["User"] != null)
+            {
+                User user = (User) Session["User"];
+                ViewBag.some = user.User_name;
+                return View(Context.Products.ToList());
+            }
+            else
+            {
+               return RedirectToAction("Index", "Home");
+            }
+            //User user = (User)Session["User"];
+            //Console.WriteLine(user.User_name);
+        }
+        [HttpGet]
+        public ActionResult LoadProducts()
+        {
+            if (Session["User"] != null)
+            {
+                User user = (User)Session["User"];
+                ViewBag.some = user.User_name;
+                return View(Context.Products.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            ViewData["Size_Id"] = new SelectList(Context.Sizes, "Size_Id", "Size_name");
-            ViewData["Sub_category"] = new SelectList(Context.SubCategories, "Sub_Category_Id", "Sub_Category_name");
-            return View();
+            if (Session["User"] != null)
+            {
+                User user = (User)Session["User"];
+                ViewBag.some = user.User_name;
+                ViewData["Size_Id"] = new SelectList(Context.Sizes, "Size_Id", "Size_name");
+                ViewData["Sub_category"] = new SelectList(Context.SubCategories, "Sub_Category_Id", "Sub_Category_name");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
         }
         [HttpPost]
         public ActionResult Create(Product product)
@@ -127,6 +163,14 @@ namespace OnlineShopping.Controllers
             Context.Products.Remove(product);
             Context.SaveChanges();
             return RedirectToAction("Index", "Product");
+        }
+
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon(); // it will clear the session at the end of request
+            return RedirectToAction("Index", "Home");
         }
 
     }
