@@ -11,10 +11,32 @@ namespace OnlineShopping.Controllers
     public class HomeController : Controller
     {
         private OnlineShopping_DBContext Context = new OnlineShopping_DBContext();
+        private byte[] _bytes;
+        private String _image;
         // GET: Home
         public ActionResult Index()
         {
-            return View(Context.Products.ToList());
+            var dir = Server.MapPath("~/App_Data/Images/Products/");
+            List<Product> products = new List<Product>();
+
+            foreach (var product in Context.Products.ToList())
+            {
+                _bytes = System.IO.File.ReadAllBytes(dir + product.Product_picture_path);
+                _image = Convert.ToBase64String(_bytes);
+                Product p = new Product()
+                {
+                    Product_Id = product.Product_Id,
+                    Product_name = product.Product_name,
+                    Product_price = product.Product_price,
+                    Product_vat = product.Product_vat,
+                    Product_discount = product.Product_discount,
+                    Product_picture_path = _image,
+                    Product_quantity = product.Product_quantity,
+                    Product_description = product.Product_description
+                };
+                products.Add(p);
+            }
+            return View(products);
         }
 
         [HttpGet]

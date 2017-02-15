@@ -6,7 +6,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { EncType = "multipart/form-data", @class = "form-horizontal", role = "form" })) 
 {
     @Html.AntiForgeryToken()
     
@@ -49,8 +49,9 @@
         <div class="form-group">
             @Html.Label("Product Image", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Product_picture_path, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Product_picture_path, "", new { @class = "text-danger" })
+                <input type="file" name="photoUpload" id="photoUpload" onchange="readURL(this);" />
+                <br /><span style="height: 150px;width: 150px;"><img id="Photo1" src="" class="form-control" style="height: 150px; width: 150px;" /></span>
+                @Html.ValidationMessage("photoUpload", "", new {@class = "text-danger"})
             </div>
         </div>
 
@@ -74,7 +75,7 @@
             @Html.Label("Product Size", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("Size", (SelectList)ViewData["Size_Id"], "--Select a size--", htmlAttributes: new { @class = "form-control" }) 
-                @Html.ValidationMessageFor(model => model.Size_Id, "", new { @class = "text-danger" })
+                @Html.ValidationMessage("Size", "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -82,7 +83,7 @@
             @Html.Label("Product Sub-Category", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("sub_category", (SelectList)ViewData["Sub_category"], "--Select a Sub Category--", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Sub_Category_Id, "", new { @class = "text-danger" })
+                @Html.ValidationMessage("sub_category", "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -94,6 +95,20 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#Photo1')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+

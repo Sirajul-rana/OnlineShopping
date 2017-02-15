@@ -6,22 +6,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-md-4 portfolio-item">
-@foreach (var item in Model)
-{
-    <a href="#">
-        <img src="~/Resource/HomeImage.png" class="img-responsive"/>
-        @*<img class="" img-responsive"" width="" 150""");
-             htmlString.AppendFormat(@"src="" {0}"" alt="" "" />*@
-        @Html.DisplayFor(modelItem => item.Product_picture_path)
-    </a>
-    <h3>
-        @Html.ActionLink(item.Product_name, "Details", new {id = item.Product_Id})
 
-    </h3>
-    <p>@Html.DisplayFor(modelItem => item.Product_description)</p>
-    <p style="text-align: center">
-        @Html.DisplayFor(modelItem => item.Product_price)Tk
-    </p>
-}
-</div>
+<center>
+    <div id="Row" class="row" style="padding: 40px;">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 portfolio-item" style="height: 350px; width: 250px; border: 1px solid darkgray; border-radius: 15px 50px 30px; margin: 5px;">
+                <span style="height: 150px; width: 150px;"><img id="Photo1" src="data:image/gif;base64,@Html.DisplayFor(modelItem => item.Product_picture_path)" style="height: 150px; width: 150px;margin-top: 10px" /></span>
+                <h5>
+                    @Html.ActionLink(item.Product_name, "Details", new {id = item.Product_Id})
+
+                </h5>
+                <p id="somearea" style="height: 80px;width: 200px; overflow: hidden;text-align:center">@Html.DisplayFor(modelItem => item.Product_description)</p>
+                <p style="text-align: center;font-weight: bold">
+                     Price: @Html.DisplayFor(modelItem => item.Product_price)Tk
+                </p>
+            </div>
+        }
+
+
+    </div>
+</center>
+<script type="text/javascript">
+            $(window).load(function() {
+                $("#somearea").text($("#somearea").text().substring(0, 300))
+            });
+</script>

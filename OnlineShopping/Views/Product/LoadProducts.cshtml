@@ -31,7 +31,7 @@
 {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Product_picture_path)
+            <span style="height: 150px;width: 150px;"><img id="Photo1" src="data:image/gif;base64,@Html.DisplayFor(modelItem => item.Product_picture_path)" style="height: 150px; width: 150px;" /></span>
         </td>
         <td>
             @Html.ActionLink(item.Product_name, "Details", new { id = item.Product_Id })
