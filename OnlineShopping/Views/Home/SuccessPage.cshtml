@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Success-";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container container-fluid">
+    <div class="row">
+        <img id="success" src="~/Resource/success.png" alt=""/>
+    </div>
+    <div class="row">
+        <h1 id="successTitle">Registration completed successfully</h1>
+    </div>
+    <div class="row">
+        <p id="successMessage">
+            Please go to @Html.ActionLink("Login Page", "Index", "Home") for more.
+        </p>
+    </div>
+
+</div>
+
+
+

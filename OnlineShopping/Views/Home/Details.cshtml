@@ -1,13 +1,120 @@
 ﻿@model OnlineShopping.Models.Product
 
 @{
-    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="container">
+    <div class="col-md-6">
+        <div class="product col-md-8 service-image-left">
+            <img id="item-display" src="data:image/gif;base64,@Html.DisplayFor(modelItem => modelItem.Product_picture_path)" alt=""/>
+        </div>
 
-<div>
+        <div class="service1-items col-sm-2 col-md-4 pull-left" style="padding-left: 0px;">
+            <a id="item-1" class="service1-item">
+                <img id="item-display" src="data:image/gif;base64,@Html.DisplayFor(modelItem => modelItem.Product_picture_path)" alt=""/>
+            </a>
+            <a id="item-2" class="service1-item">
+                <img id="item-display" src="data:image/gif;base64,@Html.DisplayFor(modelItem => modelItem.Product_picture_path)" alt=""/>
+            </a>
+            <a id="item-3" class="service1-item">
+                <img id="item-display" src="data:image/gif;base64,@Html.DisplayFor(modelItem => modelItem.Product_picture_path)" alt=""/>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="product-title">@Html.DisplayFor(model => model.Product_name)</div>
+        <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i>
+        </div>
+        <div class="product-desc">@Html.DisplayFor(model => model.Product_description)</div>
+        <hr>
+        <div class="product-price">@Html.DisplayFor(model => model.Product_price)</div>
+        <div class="product-stock" style="color: @ViewBag.colorStatus">@ViewBag.stockStatus</div>
+        <hr>
+        <div class="section" style="padding-bottom:20px;">
+            <h6 class="title-attr">Quantity</h6>
+            <div class="row" style="padding-left: 15px;">
+                <div class="col-md-1" style="padding:0px;">
+                    <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
+                </div>
+                <div class="col-md-1"style="padding:0px;">
+                    <input value="1" style="padding:5px;font-size:13px; font-weight: bold;max-width:100%;text-align:center;"/>
+                </div>
+                <div class="col-md-1"style="padding:0px;">
+                    <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-group cart">
+            <button type="button" class="btn btn-success">
+                Add to cart
+            </button>
+        </div>
+        <div class="btn-group wishlist">
+            <button type="button" class="btn btn-danger">
+                Add to wishlist
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="col-md-12 product-info">
+        <ul id="myTab" class="nav nav-tabs nav_tabs">
+
+            <li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
+
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="service-one">
+
+                <section class="container product-info">
+                    <h3>@Html.DisplayFor(model => model.Product_name)
+                        description:</h3>
+                    @foreach (var value in ((string[]) ViewBag.description))
+                    {
+                        <li>@value</li>
+                    }
+                </section>
+
+            </div>
+            <div class="tab-pane fade" id="service-two">
+
+                <section class="container"></section>
+
+            </div>
+            <div class="tab-pane fade" id="service-three">
+
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".btn-minus").on("click", function () {
+            
+            var now = $(".section > div >div > input").val();
+            if ($.isNumeric(now)) {
+                if (parseInt(now) - 1 > 0) { now--; }
+                $(".section > div >div > input").val(now);
+            } else {
+                $(".section > div >div > input").val("1");
+            }
+        })
+        $(".btn-plus").on("click", function() {
+            var now = $(".section > div >div > input").val();
+            if ($.isNumeric(now)) {
+                $(".section > div >div > input").val(parseInt(now) + 1);
+            } else {
+                $(".section > div >div > input").val("1");
+            }
+        });
+    });
+</script>
+@*<div>
     <h4>Product</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -48,7 +155,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Product_picture_path)
+            <span style="height: 150px;width: 150px;"><img id="Photo1" src="data:image/gif;base64,@Html.DisplayFor(modelItem => modelItem.Product_picture_path)" style="height: 150px; width: 150px;" /></span>
         </dd>
 
         <dt>
@@ -88,3 +195,4 @@
 <p>
     @Html.ActionLink("Back to List", "Index")
 </p>
+*@

@@ -177,13 +177,14 @@ namespace OnlineShopping.Controllers
                 }
                 else
                 {
+                    
+                    fileName = Path.GetFileName(httpPostedFileBase.FileName);
+                    dir = Path.Combine(Server.MapPath("~/App_Data/Images/Products/"), fileName);
+                    httpPostedFileBase.SaveAs(dir);
                     if (System.IO.File.Exists(dir + updateProduct.Product_picture_path))
                     {
                         System.IO.File.Delete(dir + updateProduct.Product_picture_path);
                     }
-                    fileName = Path.GetFileName(httpPostedFileBase.FileName);
-                    dir = Path.Combine(Server.MapPath("~/App_Data/Images/Products/"), fileName);
-                    httpPostedFileBase.SaveAs(dir);
                 }
 
             }

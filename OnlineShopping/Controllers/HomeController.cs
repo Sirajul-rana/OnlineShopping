@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using OnlineShopping.Context;
 using OnlineShopping.Models;
 
@@ -39,25 +40,93 @@ namespace OnlineShopping.Controllers
             return View(products);
         }
 
+
         [HttpGet]
         public ActionResult Details(int id)
         {
-            Product product = Context.Products.SingleOrDefault(pro => pro.Product_Id == id);
-            Size size = Context.Sizes.SingleOrDefault(s => s.Size_Id == product.Size_Id);
-            Sub_Category subCategory = Context.SubCategories.SingleOrDefault(sub => sub.Sub_Category_Id == product.Sub_Category_Id);
-
-            if (size != null)
+            if (id == 0)
             {
-                ViewBag.sizename = size.Size_name;
+                return RedirectToAction("Index", "Home");
             }
-
-            if (subCategory != null)
+            else
             {
-                ViewBag.subcategoryname = subCategory.Sub_Category_name;
+                Product product = Context.Products.SingleOrDefault(pro => pro.Product_Id == id);
+                Size size = Context.Sizes.SingleOrDefault(s => s.Size_Id == product.Size_Id);
+                Sub_Category subCategory = Context.SubCategories.SingleOrDefault(sub => sub.Sub_Category_Id == product.Sub_Category_Id);
+                string[] description_li = product.Product_description.Split(',');
+                ViewBag.description = description_li;
+                var path = Server.MapPath("~/App_Data/Images/Products/");
+                _bytes = System.IO.File.ReadAllBytes(path + product.Product_picture_path);
+                _image = Convert.ToBase64String(_bytes);
+
+                if (size != null)
+                {
+                    ViewBag.sizename = size.Size_name;
+                }
+
+                if (subCategory != null)
+                {
+                    ViewBag.subcategoryname = subCategory.Sub_Category_name;
+                }
+
+                if (product.Product_quantity == 0)
+                {
+                    ViewBag.stockStatus = "Out of Stock";
+                    ViewBag.colorStatus = "#FF0000";
+                }
+                else
+                {
+                    ViewBag.stockStatus = "In Stock";
+                    ViewBag.colorStatus = "#74DF00";
+                }
+
+                product.Product_picture_path = _image;
+                return View(product);
             }
-            return View(product);
+            
         }
 
+        [HttpGet]
+        public ActionResult CartView()
+        {
+            return View(Context.Products.ToList());
+        }
+
+
+        [HttpGet]
+        public ActionResult Registration()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Registration(User user)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (user.User_password == user.User_ConfirmPassword)
+                {
+                    return RedirectToAction("SuccessPage", "Home");
+                }
+                else
+                {
+                    return View(user);
+                }
+            }
+            else
+            {
+                return View(user);
+            }
+            
+        }
+
+        [HttpGet]
+        public ActionResult SuccessPage()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Login(string username, string password)
         {

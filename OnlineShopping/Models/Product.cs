@@ -23,6 +23,7 @@ namespace OnlineShopping.Models
         [Required(ErrorMessage = "Product quantity needed")]
         public int Product_quantity { get; set; }
         [Required(ErrorMessage = "Product description needed")]
+        [DataType(DataType.MultilineText)]
         public string Product_description { get; set; }
 
         [Required(ErrorMessage = "Nothing is selected")]

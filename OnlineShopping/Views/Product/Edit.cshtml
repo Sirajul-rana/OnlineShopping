@@ -67,9 +67,10 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Product_description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Product_description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Product_description, "", new { @class = "text-danger" })
+            <div class="col-md-10" id="div_procuct_description">
+                <textarea id ="Procuct_description" class="form-control" title = "Procuct_description">@Html.DisplayFor(model => model.Product_description)</textarea>
+                @*@Html.EditorFor(model => model.Product_description, new {htmlAttributes = new {@class = "form-control", @title = "Procuct_description"}})*@
+                @Html.ValidationMessageFor(model => model.Product_description, "", new {@class = "text-danger"})
             </div>
         </div>
 
@@ -82,12 +83,13 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Sub_Category_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Sub_Category_Id, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownList("sub_category", (SelectList)ViewData["Sub_category"], "--Select a Sub-Category--", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Sub_Category_Id, "", new { @class = "text-danger" })
+                @Html.DropDownList("sub_category", (SelectList) ViewData["Sub_category"], "--Select a Sub-Category--", htmlAttributes: new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.Sub_Category_Id, "", new {@class = "text-danger"})
             </div>
         </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -102,6 +104,11 @@
 </div>
 
 <script>
+    
+    $('#div_procuct_description').on('change keyup keydown paste cut', 'textarea', function () {
+        $(this).height(0).height(this.scrollHeight);
+    }).find('textarea').change();
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
